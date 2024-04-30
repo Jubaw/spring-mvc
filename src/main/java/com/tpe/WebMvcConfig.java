@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-@Configuration
-@ComponentScan("com.tpe") //default değer.
-@EnableWebMvc
-public class WebMvcConfig implements WebMvcConfigurer {
 
+@Configuration
+@ComponentScan("com.tpe")
+@EnableWebMvc//MVC yi etkinleştirmek için
+public class WebMvcConfig implements WebMvcConfigurer {
     //view resolver
     @Bean
     public InternalResourceViewResolver resolver(){

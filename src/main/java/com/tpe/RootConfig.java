@@ -1,6 +1,7 @@
 package com.tpe;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,9 @@ public class RootConfig {
         return sessionFactory;
     }
 
+    //Responsible method for creating connection to the database. Keywords used in params are taken from --
+    // the db.properties class we have set earlier at properties package. Encapsulation of info.
+    //We use enviroment class to do it, otherwise we would be doing hard coding and security breach by not using enviroment such as ->  dataSource.setUsername("dev_user");
     private DataSource dataSource(){
         DriverManagerDataSource dataSource=new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
@@ -37,6 +41,9 @@ public class RootConfig {
         return dataSource;
     }
 
+
+    //Hibernate’in yapılandırma ayarlarını programatik olarak belirlemek için kullanılır. Hangi ORM kullanılacağı, format, görüntüleme
+    //ve yapılandırma ayarını belirtir.db.properties içindeki satırların karşılıklarını verir.
     private Properties hibernateProperties(){
         Properties properties=new Properties();
         properties.put("hibernate.dialect",environment.getRequiredProperty("hibernate.dialect"));
