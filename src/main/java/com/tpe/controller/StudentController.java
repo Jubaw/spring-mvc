@@ -33,10 +33,10 @@ public class StudentController {
     //http:localhost:8080/SpringMvc/students/hi + GET
     //@RequestMapping("/students")
     @GetMapping("/hi")
-    public ModelAndView sayHi(){
-        ModelAndView mav=new ModelAndView();
-        mav.addObject("message","Hi,");
-        mav.addObject("messagebody","I'm a Student Management System");
+    public ModelAndView sayHi() {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("message", "Hi,");
+        mav.addObject("messagebody", "I'm a Student Management System");
         mav.setViewName("hi");
         return mav;
     }
@@ -47,10 +47,10 @@ public class StudentController {
     //1-tüm öğrencileri listeleme:
     // http://localhost:8080/SpringMvc/students + GET
     @GetMapping
-    public ModelAndView getStudents(){
-        List<Student> allStudents=service.listAllStudents();
-        ModelAndView mav=new ModelAndView();
-        mav.addObject("studentList",allStudents);
+    public ModelAndView getStudents() {
+        List<Student> allStudents = service.listAllStudents();
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("studentList", allStudents);
         mav.setViewName("students");
         return mav;
     }
@@ -58,7 +58,7 @@ public class StudentController {
     //2-öğrenciyi kaydetme
     //http://localhost:8080/SpringMvc/students/new + GET
     @GetMapping("/new")
-    public String sendForm(@ModelAttribute("student") Student student){
+    public String sendForm(@ModelAttribute("student") Student student) {
         return "studentForm";
     }
 
@@ -70,9 +70,9 @@ public class StudentController {
     //2-a:öğrenciyi DB ye ekleme
     //http://localhost:8080/SpringMvc/students/saveStudent + POST
     @PostMapping("/saveStudent")
-    public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult){
+    public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "studentForm";
         }
         service.addOrUpdateStudent(student);
@@ -84,10 +84,10 @@ public class StudentController {
     //http://localhost:8080/SpringMvc/students/update?id=1i + GET
 
     @GetMapping("/update")
-    public ModelAndView sendFormForUpdate(@RequestParam("id")Long identity){ //1
+    public ModelAndView sendFormForUpdate(@RequestParam("id") Long identity) { //1
         Student foundStudent = service.findStudentById(identity);
         ModelAndView mav = new ModelAndView();
-        mav.addObject("student",foundStudent);
+        mav.addObject("student", foundStudent);
         mav.setViewName("studentForm");
         return mav;
     }
@@ -95,7 +95,7 @@ public class StudentController {
     //4-Mevcut öğrenciyi silme
     //http://localhost:8080/SpringMvc/students/delete/1 + DEL
     @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable("id") Long identity){
+    public String deleteStudent(@PathVariable("id") Long identity) {
         service.deleteStudent(identity);
         return "redirect:/students";
 
@@ -104,14 +104,14 @@ public class StudentController {
 
     //@ExceptionHandler: try-catch bloğu mantığıyla benzer çalışır.
     @ExceptionHandler(StudentNotFoundException.class)
-    public ModelAndView handleException(Exception ex){
+    public ModelAndView handleException(Exception ex) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("message",ex.getMessage());
+        mav.addObject("message", ex.getMessage());
         mav.setViewName("notFound");
         return mav;
     }
 
-
+//LAST
 
 
 }
